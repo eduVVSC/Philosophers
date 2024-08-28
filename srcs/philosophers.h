@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 09:07:12 by edvieira          #+#    #+#             */
-/*   Updated: 2024/08/26 11:20:12 by edvieira         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:10:19 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,52 @@
 # include <pthread.h>
 # include <unistd.h>
 
+# define DEAD 1
+# define ALIVE 0
+# define EATING 0
+# define NOT_EATING 1
+
 typedef struct philo_s
 {
-	int				time_eat;
+	int				many_philo;
+	int				time_to_eat;
+	int				time_to_die;
+	int				time_to_sleep;
 	int				many_eaten;
+	int				many_to_eat;
+	int				eating;
+	int				each_philo; // thjis maybe going of later, dont know
+	int				*dead;
+	long			time_start;
+	long			time_bf_action;
 	pthread_t		thread;
 	pthread_mutex_t	l_fork;
 	pthread_mutex_t	*r_fork; // its a pointer because it is going to point to the next philosopher fork
+	struct timeval	tv;
 }					t_philo;
 
 typedef struct	all_s
 {
 	struct timeval	tv;
-	struct timezone	tz;
-	int				to_eat;
+	int				dead;
 	int				many_philo;
-	long			time_start;
-	int				time_to_eat;
-	int				time_to_die;
-	int				time_to_sleep;
-	t_philo			*philo;
+	pthread_t		table;
+	t_philo			philo[1000];
 }					t_all;
 
-void	running(t_all *data);
 void	free_philo(t_all *data);
-void	threads_n_mutex(t_all *data);
+void	starting_forks(t_all *data);
 void	print_philo_info(t_all *data);
+void	*philo_routine(void *philo_img);
 void	initializing_values(t_all *data, int flag, char **av);
 
 int		ft_atoi(const char *str);
 int		check_characters(char **str);
 
 #endif
+
+/* 	int				to_eat;
+	int			time_start;
+	int				time_to_eat;
+	int				time_to_die;
+	int				time_to_sleep; */

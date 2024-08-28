@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:04:40 by edvieira          #+#    #+#             */
-/*   Updated: 2024/08/26 11:18:22 by edvieira         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:44:12 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,18 @@ int	check_characters(char **str)
 
 void	print_philo_info(t_all *data)
 {
-	printf("many_philosophers: %d\n", data->many_philo);
-	printf("time_to_die: %d\n", data->time_to_die);
-	printf("time_to_eat: %d\n", data->time_to_eat);
-	printf("time_to_sleep: %d\n", data->time_to_sleep);
-	printf("many_to_eat :%d\n", data->to_eat);
+	printf("many_philosophers: %d\n", data->philo[0].many_philo);
+	printf("time_to_die: %d\n", data->philo[0].time_to_die);
+	printf("time_to_eat: %d\n", data->philo[0].time_to_eat);
+	printf("time_to_sleep: %d\n", data->philo[0].time_to_sleep);
+	printf("many_to_eat :%d\n", data->philo[0].many_to_eat);
 	printf("\n\n--philosophers:\n");
 	for (int i = 0; i < data->many_philo; i++)
 	{
 		printf("philo %d has eaten %d times\n", i, data->philo[i].many_eaten);
 		printf("\tleft_fork:|%p| right_fork:|%p|\n", &data->philo[i].l_fork, data->philo[i].r_fork);
 	}
-	printf("time_started: %ld\n", data->time_start);
-	gettimeofday(&data->tv , &data->tz);
+	printf("time_started: %ld\n", data->philo[0].time_start);
+	gettimeofday(&data->tv , NULL);
 	printf("time_now: %ld\n", data->tv.tv_usec);
 }

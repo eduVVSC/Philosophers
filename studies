@@ -1,9 +1,10 @@
 Functions allowed:
 
 - Gettimeofday()
-- pthread_create()
+- pthread_create(), This function is going to create my thread and attribuite to it it's 
+		behaviour.
 - pthread_detach()
-- pthread_join()
+- pthread_join(), This function will bascally make the threads run;
 -----------------------------------------------------------
 - pthread_mutex_init(mutex adress, Initializer), It will initialize the protected objects,
 						 with default values;
@@ -59,14 +60,19 @@ to the system. If you try to detach/release an already released memory it will g
 
 
 
+Now at the code:
+
+	Now what i need to do is to start the loop in the philophers thread, this loops will 
+	be their "life circle", they will sleep, eat and think, so in order to make it, I will
+	create their threads and pass te function philo_life:
+
+My philo routine can only receive one void parameter:
 
 
-
-
-
-
-
-
+Philo life has:
+	-sleeping, this function will basecally wait until the diference is iqual to the 
+	time of sleep stablished in the entrence;
+	-
 
 
 
