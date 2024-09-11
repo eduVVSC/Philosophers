@@ -6,23 +6,11 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 16:04:40 by edvieira          #+#    #+#             */
-/*   Updated: 2024/08/26 16:44:12 by edvieira         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:05:11 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	free_philo(t_all *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->many_philo)
-	{
-		free (&data->philo[i]);
-		i++;
-	}
-}
 
 int	ft_atoi(const char *str)
 {
@@ -58,6 +46,24 @@ int	check_characters(char **str)
 	return (0);
 }
 
+void	print_message(t_philo *philo ,char *message)
+{
+	philo->time_now = get_time();
+	pthread_mutex_lock(philo->message);
+	if (*philo->dead != DEAD)
+		printf("%ld %d %s\n", (philo->time_now - philo->time_start),  philo->each_philo, message);
+	pthread_mutex_unlock(philo->message);
+}
+
+size_t	get_time(void)
+{
+	struct timeval	time;
+	if (gettimeofday(&time, NULL) == -1)
+		printf("error in gettimeofday\n");
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+/*
 void	print_philo_info(t_all *data)
 {
 	printf("many_philosophers: %d\n", data->philo[0].many_philo);
@@ -75,3 +81,4 @@ void	print_philo_info(t_all *data)
 	gettimeofday(&data->tv , NULL);
 	printf("time_now: %ld\n", data->tv.tv_usec);
 }
+*/

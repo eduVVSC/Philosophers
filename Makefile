@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -g -Wall -Wextra -Werror
 
-SRCS = srcs/philos.c srcs/utils.c srcs/main.c
+SRCS = srcs/table_verification.c srcs/philos.c srcs/utils.c srcs/main.c
 
 OBJS = $(SRCS:%.c=%.o)
 

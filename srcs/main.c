@@ -6,13 +6,24 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 09:06:47 by edvieira          #+#    #+#             */
-/*   Updated: 2024/08/28 13:13:04 by edvieira         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:12:07 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-// pode ser que aqui esteja faltando um ponteiro para o garfo do filosofo, nao tenho certeza se eh com o &
+void	one_philo(t_all *data, char **av)
+{
+	data->philo[0].time_to_die = ft_atoi(av[2]);
+	data->philo[0].message = &data->message;
+	data->philo[0].dead = &data->dead;
+	pthread_mutex_init(&data->philo[0].l_fork, NULL);
+	pthread_create(&data->philo[0].thread, NULL,
+		one_philo_routine, &data->philo[0]);
+	pthread_join(data->philo[0].thread, NULL);
+	pthread_mutex_destroy(&data->philo[0].l_fork);
+	exit (SUCCESS);
+}
 
 void	starting_forks(t_all *data)
 {
@@ -35,75 +46,37 @@ void	initializing_values(t_all *data, int flag, char **av)
 	int	i;
 
 	i = -1;
-	gettimeofday(&data->tv , NULL);
 	data->many_philo = ft_atoi(av[1]);
 	data->dead = ALIVE;
-	while (++i < ft_atoi(av[1]))
+	pthread_mutex_init(&data->message, NULL);
+	if (data->many_philo == 1)
+		one_philo(data, av);
+	while (++i < data->many_philo)
 	{
-		data->philo[i].time_start = data->tv.tv_usec;
-		data->philo[i].many_philo = ft_atoi(av[1]);
+		data->philo[i].many_philo = data->many_philo;
 		data->philo[i].time_to_die = ft_atoi(av[2]);
 		data->philo[i].time_to_eat = ft_atoi(av[3]);
 		data->philo[i].time_to_sleep = ft_atoi(av[4]);
 		data->philo[i].many_to_eat = -1;
 		data->philo[i].each_philo = i;
 		data->philo[i].dead = &data->dead;
+		data->philo[i].message = &data->message;
 		if (flag == 0)
 			data->philo[i].many_to_eat = ft_atoi(av[5]);
-		pthread_create(&data->philo->thread, NULL, philo_routine, &data->philo[i]);
+		pthread_create(&data->philo[i].thread, NULL, philo_routine, &data->philo[i]);
 	}
 	starting_forks(data);
 }
 
-void	starting_even(t_all *table)
+void starting_table(t_all *data)
 {
 	int	i;
-
-	i = -2;
-	while((i += 2) < table->many_philo)
-		pthread_join(table->philo[i].thread, NULL);
-	i--;
-	while((i -= 2) > 0)
-		pthread_join(table->philo[i].thread, NULL);
-}
-
-void	starting_odd(t_all *table)
-{
-	int	i;
-
-	i = -2;
-	while((i += 2) < table->many_philo)
-		pthread_join(table->philo[i].thread, NULL);
-	i--;
-	while((i -= 2) > 0)
-		pthread_join(table->philo[i].thread, NULL);
-}
-
-void	*table(void *data)
-{
-	t_all	*table;
-	int		i;
 
 	i = -1;
-	table = (t_all *)data;
-/* 	while (table->philo[0].dead == ALIVE)
-	{
-		gettimeofday(&table->tv, NULL);
-	} */
-/* 	if(table->many_philo / 2 == 1)
-		starting_odd(table);
-	else
-		starting_even(table); */
-	return (NULL);
-}
-
-void	starting_table(t_all *data)
-{
-	pthread_create(&data->table, NULL, table, &data);
-	if(data->many_philo % 2 == 1)
-		starting_odd(data);
-	else
-		starting_even(data);
+	pthread_create(&data->table, NULL, table_routine, &data);
+	pthread_join(data->table, NULL);
+	while (++i < data->many_philo)
+		pthread_join(data->philo[i].thread, NULL);
 }
 
 int	main(int ac, char **av)
@@ -112,14 +85,13 @@ int	main(int ac, char **av)
 
 	if (ac == 5 || ac == 6)
 	{
- 		if (check_characters(av) == 1)
+		if (check_characters(av) == 1)
 			return (write(1, "E", 1));
 		if (ac == 5)
 			initializing_values(&data, 1, av);
 		else
 			initializing_values(&data, 0, av);
 		starting_table(&data);
-		//print_philo_info(&data);
 	}
 	else
 		return (1);
