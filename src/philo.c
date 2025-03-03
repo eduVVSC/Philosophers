@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:31:42 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/03 14:18:29 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:46:30 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	philo_sleeping(t_philo *philo)
 	}
 
 }
-
 
 void	philo_eating(t_philo *philo)
 {
@@ -79,5 +78,20 @@ void	*philo_routine(void *philo_img)
 		if (*philo->life_status == ALIVE)
 			usleep(10);
 	}
+	return (NULL);
+}
+
+void	*one_philo_routine(void *philo_img)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)philo_img;
+	philo->loop_start = get_time();
+	philo_thinking(philo);
+	pthread_mutex_lock(&philo->l_fork);
+	print_message(philo, FORK_M);
+	usleep(philo->time_die * 1000);
+	pthread_mutex_unlock(&philo->l_fork);
+	print_message(philo, DEAD_M);
 	return (NULL);
 }

@@ -80,9 +80,19 @@ void	printPhilos(t_philo *philo);
 //-----------Utils
 
 size_t	get_time(void);
+void	join_even(t_philo *philo);
+void	join_odd(t_philo *philo);
 int		check_only_nums(char **str);
 void	clean_n_finish(t_all *prog);
 int		valid_inputs(t_inp_values val, int ac);
 void	print_message(t_philo *philo ,char *message);
+
+//-----------Philo routine
+
+void	philo_eating(t_philo *philo);
+void	philo_thinking(t_philo *philo);
+void	philo_sleeping(t_philo *philo);
+void	*philo_routine(void *philo_img);
+void	*one_philo_routine(void *philo_img);
 
 #endif

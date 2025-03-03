@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:13:52 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/03 13:36:43 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:41:31 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	start_philos(t_all *prog, int ac, char **av)
 	prog->philo = malloc(sizeof(t_philo));
 	if (!prog->philo)
 		exit (1); // function to clean and exit showing malloc error
-	init_philo(prog, prog->philo, val);
+	init_philo_val(prog, prog->philo, val);
 	prev = prog->philo;
 	while (++val.phl_num <= val.many_philo)
 	{
 		tmp = malloc(sizeof(t_philo));
 		if (!tmp)
 			exit (1); // function to clean and exit showing malloc error
-		init_philo(prog, tmp, val);
+		init_philo_val(prog, tmp, val);
 		prev->next = tmp;
 		prev = tmp;
 	}
@@ -85,7 +85,7 @@ void	init_philo_val(t_all *prog, t_philo *philo, t_inp_values val)
 	//game vars
 	philo->life_status = &prog->life_status;
 	philo->messager = &prog->messager;
-	// pthread_create(&philo->thread, NULL, philo_routine, philo);
+	// pthread_create(&philo->thread, NULL, philo_routine, philo); // i can set the routine later as well?
 	pthread_mutex_init(&philo->l_fork, NULL);
 	philo->r_fork = NULL;
 	philo->next = NULL;
