@@ -1,4 +1,0 @@
-2 100 200 0
-	->second philo should die (this dont work)
-2 100 100 0
-	->first philo should die (this one works)
