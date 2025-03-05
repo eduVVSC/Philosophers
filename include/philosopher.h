@@ -17,6 +17,13 @@
 # define SUCCESS 0
 # define ERROR 1
 
+/* # define FORK_M "has taken a fork"
+# define DEAD_M "died"
+# define EATING_M "is eating"
+# define SLEEPING_M "is sleeping"
+# define THINKING_M "is thinking" */
+
+
 # define FORK_M "has taken a fork	🍴"
 # define DEAD_M "died			💀"
 # define EATING_M "is eating		🍅"
@@ -81,7 +88,7 @@ void	printPhilos(t_philo *philo);
 
 size_t	get_time(void);
 void	join_even(t_philo *philo);
-void	join_odd(t_philo *philo);
+void	join_odds(t_philo *philo);
 int		check_only_nums(char **str);
 void	clean_n_finish(t_all *prog);
 int		valid_inputs(t_inp_values val, int ac);
