@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:03:54 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 18:30:59 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:37:20 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	*waiting_sync(void *prog_img)
 
 	sync = 1;
 	prog = (t_all *)prog_img;
-	printf("sync created\n");
 	while (sync == 1)
 	{
 		tmp = prog->philo;

@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:31:42 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 18:26:01 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:40:18 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	*philo_routine(void *philo_img)
 	while (life_status(CHECK, philo) == ALIVE)
 	{
 		philo->time_now = get_time();
-		//if (life_status(CHECK, philo) == ALIVE)
+		if (life_status(CHECK, philo) == ALIVE) // one solution might be take this away?
 			philo_thinking(philo);
-		//if (life_status(CHECK, philo) == ALIVE)
+		if (life_status(CHECK, philo) == ALIVE)
 			philo_eating(philo);
-		//if (life_status(CHECK, philo) == ALIVE)
+		if (life_status(CHECK, philo) == ALIVE)
 			philo_sleeping(philo);
 		if (philo->max_eat != -1 && philo->eaten == philo->max_eat)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:04:34 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 18:20:18 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:39:11 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	thread_creat_n_join(t_all *prog)
 		tmp = tmp->next;
 	}
 	join(prog->philo);
-	//printf("-----------------------after join finaly.\n");
 }
 
 /// @brief Read inputs and initializate the program structure vars
