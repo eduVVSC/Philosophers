@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:52:13 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 12:47:16 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:00:47 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 
 # define SUCCESS 0
 # define ERROR 1
+
+# define CHECK 0
+# define SET 1
 
 /* # define FORK_M "has taken a fork"
 # define DEAD_M "died"
@@ -73,6 +76,8 @@ typedef struct s_philo
 	pthread_mutex_t	l_fork;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*messager;
+
+	pthread_mutex_t	*death; // new reference
 	struct s_philo	*next;
 }				t_philo;
 
@@ -83,6 +88,8 @@ typedef struct s_all
 	int				life_status;
 	pthread_mutex_t	*table;
 	pthread_mutex_t	messager;
+
+	pthread_mutex_t	death; // new mutex var
 	t_philo			*philo;
 }				t_all;
 
@@ -98,12 +105,14 @@ void	print_philos(t_philo *philo);
 
 //-----------Utils
 size_t	get_time(void);
+int		alive(t_philo *philo);
 void	get_forks(t_philo *philo);
 void	join_even(t_philo *philo);
 void	join_odds(t_philo *philo);
 int		check_only_nums(char **str);
 void	clean_n_finish(t_all *prog);
 int		valid_inputs(t_inp_values val, int ac);
+int		life_status(int action, t_philo *philo);
 void	print_message(t_philo *philo, char *message);
 
 //-----------Philo routine

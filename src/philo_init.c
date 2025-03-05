@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:13:52 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 13:02:58 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:07:43 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	init_philo_val(t_all *prog, t_philo *philo, t_inp_values val)
 	philo->time_beg_one_loop = 0;
 	philo->life_status = &prog->life_status;
 	philo->messager = &prog->messager;
+	philo->death = &prog->death;
 	pthread_mutex_init(&philo->l_fork, NULL);
 	philo->r_fork = NULL;
 	philo->next = NULL;

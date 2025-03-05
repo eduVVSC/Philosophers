@@ -6,24 +6,11 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:04:37 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 12:16:02 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:23:12 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosopher.h"
-
-/// @brief Use the messager mutex to print a given message
-/// @param philo
-/// @param message
-void	print_message(t_philo *philo, char *message)
-{
-	philo->time_now = get_time();
-	pthread_mutex_lock(philo->messager);
-	if (*philo->life_status != DEAD)
-		printf("%ld %d %s\n", (philo->time_now - philo->loop_start),
-			philo->phl_num, message);
-	pthread_mutex_unlock(philo->messager);
-}
 
 /// @brief Get the time and round it
 /// @return (time value)
@@ -83,6 +70,7 @@ void	clean_n_finish(t_all *prog)
 	t_philo	*tmp;
 
 	pthread_mutex_destroy(&prog->messager);
+	pthread_mutex_destroy(&prog->death);
 	while (prog->philo)
 	{
 		pthread_mutex_destroy(&prog->philo->l_fork);
@@ -92,3 +80,14 @@ void	clean_n_finish(t_all *prog)
 	}
 	free(prog);
 }
+
+/* void	custom_sleep(int sleep)
+{
+	long	init_time;
+
+	init_time = get_time();
+	while (get_time() - init_time < sleep / 1000)
+	{
+		usleep(100);
+	}
+} */

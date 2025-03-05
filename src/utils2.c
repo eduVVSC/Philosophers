@@ -6,11 +6,60 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:59:26 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 13:07:39 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:23:14 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosopher.h"
+
+/// @brief Use the messager mutex to print a given message
+/// @param philo
+/// @param message
+void	print_message(t_philo *philo, char *message)
+{
+	philo->time_now = get_time();
+	pthread_mutex_lock(philo->messager);
+	if (*philo->life_status != DEAD)
+		printf("%ld %d %s\n", (philo->time_now - philo->loop_start),
+			philo->phl_num, message);
+	pthread_mutex_unlock(philo->messager);
+}
+
+/// @brief Access and manipulate the variable life_status
+/// @param action SET change life status -CHECK- returns the status
+/// @param philo
+/// @return (life_status)
+int	life_status(int action, t_philo *philo)
+{
+	int	status;
+
+	status = 0;
+	pthread_mutex_lock(philo->death);
+	if (action == SET)
+	{
+		if (*philo->life_status != DEAD)
+		{
+			*philo->life_status = DEAD;
+			printf("%ld %d %s\n", (philo->time_now - philo->loop_start),
+			philo->phl_num, DEAD_M);
+		}
+	}
+	status = *philo->life_status;
+	pthread_mutex_unlock(philo->death);
+	return (status);
+}
+
+/// @brief Refresh time now and check if the philo is
+/// @brief still alive
+/// @param philo
+/// @return (TRUE -> philo is alive) (FALSE -> philo is dead)
+int	alive(t_philo *philo)
+{
+	philo->time_now = get_time();
+	if ((philo->time_now - philo->time_beg_one_loop) >= philo->time_die)
+		return (FALSE);
+	return (TRUE);
+}
 
 /// @brief Join the thread on odd positions
 /// @param philo
@@ -46,14 +95,6 @@ void	join_even(t_philo *philo)
 			break ;
 	}
 }
-
-/* void	change_life_status(t_philo *philo)
-{
-	pthread_mutex_lock(philo->die);
-	if (philo->life_status != DEAD)
-		*philo->life_status == DEAD;
-	pthread_mutex_unlock(philo->die);
-} */
 
 /*void	print_philo_info(t_philo *philo)
 {

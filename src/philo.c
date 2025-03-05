@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:31:42 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 13:05:10 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:26:24 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,13 @@ void	philo_sleeping(t_philo *philo)
 	print_message(philo, SLEEPING_M);
 	while ((philo->time_now - philo->action_start) < philo->time_sleep)
 	{
-		if (*philo->life_status == DEAD)
+		if (life_status(CHECK, philo) == DEAD)
 			break ;
-		philo->time_now = get_time();
-		if ((philo->time_now - philo->time_beg_one_loop) >= philo->time_die)
+		if (!alive(philo))
 		{
-			print_message(philo, DEAD_M);
-			if (*philo->life_status != DEAD)
-				*philo->life_status = DEAD;
+			life_status(SET, philo);
 			break ;
 		}
-		philo->time_now = get_time();
 	}
 }
 
@@ -44,19 +40,18 @@ void	philo_eating(t_philo *philo)
 	philo->action_start = get_time();
 	while ((philo->time_now - philo->action_start) < philo->time_eat)
 	{
-		if (*philo->life_status == DEAD)
+		if (life_status(CHECK, philo) == DEAD)
 			break ;
-		if ((philo->time_now - philo->time_beg_one_loop) >= philo->time_die)
+		if (!alive(philo))
 		{
-			print_message(philo, DEAD_M);
-			if (*philo->life_status != DEAD)
-				*philo->life_status = DEAD;
+			life_status(SET, philo);
 			break ;
 		}
-		philo->time_now = get_time();
 	}
 	pthread_mutex_unlock(&philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
+	philo->time_beg_one_loop = get_time();
+	philo->eaten++;
 }
 
 void	*philo_routine(void *philo_img)
@@ -66,21 +61,18 @@ void	*philo_routine(void *philo_img)
 	philo = (t_philo *)philo_img;
 	philo->loop_start = get_time();
 	philo->time_beg_one_loop = philo->loop_start;
-	while (*philo->life_status == ALIVE)
+	while (life_status(CHECK, philo) == ALIVE)
 	{
 		philo->time_now = get_time();
-		if (*philo->life_status == ALIVE)
+		if (life_status(CHECK, philo) == ALIVE)
 			philo_thinking(philo);
-		if (*philo->life_status == ALIVE)
+		if (life_status(CHECK, philo) == ALIVE)
 			philo_eating(philo);
-		philo->eaten++;
-		philo->time_beg_one_loop = get_time();
-		if (*philo->life_status == ALIVE)
+		if (life_status(CHECK, philo) == ALIVE)
 			philo_sleeping(philo);
-		if (*philo->life_status == ALIVE)
-			usleep(10);
 		if (philo->max_eat != -1 && philo->eaten == philo->max_eat)
 			break ;
+		usleep(50);
 	}
 	return (NULL);
 }
