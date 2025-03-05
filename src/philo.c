@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:31:42 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 15:26:24 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:26:01 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	philo_sleeping(t_philo *philo)
 			life_status(SET, philo);
 			break ;
 		}
+		usleep(100);
 	}
 }
 
@@ -59,20 +60,22 @@ void	*philo_routine(void *philo_img)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_img;
+	force_sync(philo);
+
 	philo->loop_start = get_time();
 	philo->time_beg_one_loop = philo->loop_start;
 	while (life_status(CHECK, philo) == ALIVE)
 	{
 		philo->time_now = get_time();
-		if (life_status(CHECK, philo) == ALIVE)
+		//if (life_status(CHECK, philo) == ALIVE)
 			philo_thinking(philo);
-		if (life_status(CHECK, philo) == ALIVE)
+		//if (life_status(CHECK, philo) == ALIVE)
 			philo_eating(philo);
-		if (life_status(CHECK, philo) == ALIVE)
+		//if (life_status(CHECK, philo) == ALIVE)
 			philo_sleeping(philo);
 		if (philo->max_eat != -1 && philo->eaten == philo->max_eat)
 			break ;
-		usleep(50);
+		usleep(100);
 	}
 	return (NULL);
 }

@@ -26,7 +26,7 @@ OBJ_FILES := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC_FILES))
 all: ${NAME}
 
 ${NAME}: ${LIBFT} ${MAIN_FILE} $(OBJ_FILES) | $(OBJ_DIR)
-	@${CC} ${FLAGS1} ${MAIN_FILE} $(OBJ_FILES) $(LIBFT) -o $(NAME)
+	@${CC} ${FLAGS} ${MAIN_FILE} $(OBJ_FILES) $(LIBFT) -o $(NAME)
 	@echo "$(GRN)[ ${NAME} ] compiled successfully.$(RES)"
 
 ${LIBFT}:
@@ -34,7 +34,7 @@ ${LIBFT}:
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	@mkdir -p $(@D)
-	@$(CC) $(FLAGS1) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)

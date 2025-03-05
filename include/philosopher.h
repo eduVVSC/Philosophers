@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:52:13 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 15:00:47 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:24:42 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define ALIVE 0
 # define DEAD 1
+# define WAITING 2
 
 # define SUCCESS 0
 # define ERROR 1
@@ -59,6 +60,7 @@ typedef struct s_inp_values
 typedef struct s_philo
 {
 	// philosopher characteristics
+	int				on;
 	int				eaten;
 	int				phl_num;
 	int				max_eat;
@@ -76,8 +78,7 @@ typedef struct s_philo
 	pthread_mutex_t	l_fork;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*messager;
-
-	pthread_mutex_t	*death; // new reference
+	pthread_mutex_t	*death;
 	struct s_philo	*next;
 }				t_philo;
 
@@ -86,10 +87,9 @@ typedef struct s_all
 	struct timeval	tv;
 	int				many_philo;
 	int				life_status;
-	pthread_mutex_t	*table;
+	pthread_t			table;
 	pthread_mutex_t	messager;
-
-	pthread_mutex_t	death; // new mutex var
+	pthread_mutex_t	death;
 	t_philo			*philo;
 }				t_all;
 
@@ -107,8 +107,7 @@ void	print_philos(t_philo *philo);
 size_t	get_time(void);
 int		alive(t_philo *philo);
 void	get_forks(t_philo *philo);
-void	join_even(t_philo *philo);
-void	join_odds(t_philo *philo);
+void	join(t_philo *philo);
 int		check_only_nums(char **str);
 void	clean_n_finish(t_all *prog);
 int		valid_inputs(t_inp_values val, int ac);
@@ -121,5 +120,9 @@ void	philo_thinking(t_philo *philo);
 void	philo_sleeping(t_philo *philo);
 void	*philo_routine(void *philo_img);
 void	*one_philo_routine(void *philo_img);
+
+//-----------Sync
+void	force_sync(t_philo *philo);
+void	*waiting_sync(void *prog_img);
 
 #endif

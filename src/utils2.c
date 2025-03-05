@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:59:26 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 15:43:04 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:02:14 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 /// @param message
 void	print_message(t_philo *philo, char *message)
 {
-	pthread_mutex_lock(philo->messager);
 	philo->time_now = get_time();
+	pthread_mutex_lock(philo->messager);
 	if (*philo->life_status != DEAD)
 		printf("%ld %d %s\n", (philo->time_now - philo->loop_start),
 			philo->phl_num, message);
@@ -61,26 +61,9 @@ int	alive(t_philo *philo)
 	return (TRUE);
 }
 
-/// @brief Join the thread on odd positions
-/// @param philo
-void	join_odds(t_philo *philo)
-{
-	t_philo	*tmp;
-
-	tmp = philo;
-	while (tmp)
-	{
-		pthread_join(tmp->thread, NULL);
-		if (tmp->next && tmp->next->next)
-			tmp = tmp->next->next;
-		else
-			break ;
-	}
-}
-
 /// @brief Join the thread on even positions
 /// @param philo
-void	join_even(t_philo *philo)
+void	join(t_philo *philo)
 {
 	t_philo	*tmp;
 
@@ -89,10 +72,7 @@ void	join_even(t_philo *philo)
 	while (tmp)
 	{
 		pthread_join(tmp->thread, NULL);
-		if (tmp->next && tmp->next->next)
-			tmp = tmp->next->next;
-		else
-			break ;
+		tmp = tmp->next;
 	}
 }
 

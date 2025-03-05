@@ -1,0 +1,19 @@
+
+	- ./philo 1 800 200 200
+		Should die without eating
+
+	- ./philo 5 800 200 200
+		No one should die
+
+	- ./philo 5 800 200 200 7
+		No one should die
+
+	- ./philo 4 410 200 200
+		No one should die
+
+	- ./philo 4 310 200 100
+		One should die
+
+	- ./philo 50 800 200 200
+
+	- ./philo 100 800 200 200
