@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:59:26 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 15:23:14 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:43:04 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 /// @param message
 void	print_message(t_philo *philo, char *message)
 {
-	philo->time_now = get_time();
 	pthread_mutex_lock(philo->messager);
+	philo->time_now = get_time();
 	if (*philo->life_status != DEAD)
 		printf("%ld %d %s\n", (philo->time_now - philo->loop_start),
 			philo->phl_num, message);
