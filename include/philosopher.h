@@ -77,15 +77,14 @@ typedef struct	s_all
 //----------program initialization
 void	connect_r_fork(t_all *prog);
 t_all	*init_prog_struct(int ac, char **av);
-int	start_philos(t_all *prog, int ac, char **av);
+int		start_philos(t_all *prog, int ac, char **av);
 void	init_philo_val(t_all *prog, t_philo *philo, t_inp_values val);
 int		reading_input(t_inp_values *val, char **av, int ac);
 
 //----------Debug Helper
-void	printPhilos(t_philo *philo);
+void	print_philos(t_philo *philo);
 
 //-----------Utils
-
 size_t	get_time(void);
 void	join_even(t_philo *philo);
 void	join_odds(t_philo *philo);
@@ -95,7 +94,6 @@ int		valid_inputs(t_inp_values val, int ac);
 void	print_message(t_philo *philo ,char *message);
 
 //-----------Philo routine
-
 void	philo_eating(t_philo *philo);
 void	philo_thinking(t_philo *philo);
 void	philo_sleeping(t_philo *philo);

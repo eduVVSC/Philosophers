@@ -2,7 +2,7 @@ CC = cc
 NAME = philo
 
 #FLAGS
-FLAGS = -g -I$(LIB_DIR) -Wall -Wextra
+FLAGS = -g -I$(LIB_DIR) -Wall -Wextra -Werror
 
 LIB_DIR = libft/
 SRC_DIR = src/

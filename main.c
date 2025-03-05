@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:04:34 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 11:03:46 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:51:22 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,19 @@ t_all	*init_prog_struct(int ac, char **av)
 	return (prog);
 }
 
-void	start_game(int ac, char **av)
+/// @brief Read users input, create the struct,
+/// @brief and run philo threads
+void	table(int ac, char **av)
 {
 	t_all	*prog;
 
 	prog = init_prog_struct(ac, av);
 	if (!prog)
-	{
-		ft_printf("Need to enter a valid quantity of philosophers(greater than 0)!\n");
 		exit (1);
-	}
 	if (prog->many_philo == 1)
 	{
-		pthread_create(&prog->philo->thread, NULL, one_philo_routine, prog->philo);
+		pthread_create(&prog->philo->thread,
+			NULL, one_philo_routine, prog->philo);
 		pthread_join(prog->philo->thread, NULL);
 	}
 	else
@@ -74,8 +74,8 @@ void	start_game(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	if (ac >= 5 && check_only_nums(av)) //check if this can be really checked in here
-		start_game(ac, av);
+	if (ac >= 5 && check_only_nums(av))
+		table(ac, av);
 	else
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:13:52 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 11:41:35 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:44:08 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	start_philos(t_all *prog, int ac, char **av)
 	t_philo			*prev;
 
 	if (!reading_input(&val, av, ac))
-		return (ft_putstr_fd("You inserted some non positive values!", 1), ERROR);
+		return (ERROR);
 	prog->philo = malloc(sizeof(t_philo));
 	if (!prog->philo)
 		exit (1);
@@ -101,5 +101,3 @@ void	connect_r_fork(t_all *prog)
 	if (prog->many_philo > 1)
 		tmp->r_fork = &prog->philo->l_fork;
 }
-
-
