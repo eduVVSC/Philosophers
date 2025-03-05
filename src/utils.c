@@ -6,21 +6,22 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:04:37 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/03 14:29:42 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:40:58 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/philosopher.h"
+#include "../include/philosopher.h"
 
 /// @brief Use the messager mutex to print a given message
 /// @param philo
 /// @param message
-void	print_message(t_philo *philo ,char *message)
+void	print_message(t_philo *philo, char *message)
 {
 	philo->time_now = get_time();
 	pthread_mutex_lock(philo->messager);
 	if (*philo->life_status != DEAD)
-		printf("%ld %d %s\n", (philo->time_now - philo->loop_start),  philo->phl_num, message);
+		printf("%ld %d %s\n", (philo->time_now - philo->loop_start),
+			philo->phl_num, message);
 	pthread_mutex_unlock(philo->messager);
 }
 
@@ -29,6 +30,7 @@ void	print_message(t_philo *philo ,char *message)
 size_t	get_time(void)
 {
 	struct timeval	time;
+
 	if (gettimeofday(&time, NULL) == -1)
 		printf("error in gettimeofday\n");
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
@@ -43,11 +45,11 @@ int	check_only_nums(char **str)
 	int	j;
 
 	j = 1;
-	while(str[j] != 0)
+	while (str[j] != 0)
 	{
 		i = -1;
-		while(str[j][++i] != 0)
-			if(str[j][i] > '9' || str[j][i] < '0')
+		while (str[j][++i] != 0)
+			if (str[j][i] > '9' || str[j][i] < '0')
 				return (FALSE);
 		j++;
 	}
@@ -81,7 +83,6 @@ void	clean_n_finish(t_all *prog)
 	t_philo	*tmp;
 
 	pthread_mutex_destroy(&prog->messager);
-	//pthread_mutex_destroy(&prog->table); // if I add it to program
 	while (prog->philo)
 	{
 		pthread_mutex_destroy(&prog->philo->l_fork);

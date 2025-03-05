@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:31:42 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 10:44:46 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:42:28 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	philo_sleeping(t_philo *philo)
 		}
 		philo->time_now = get_time();
 	}
-
 }
 
 void	philo_eating(t_philo *philo)
@@ -71,12 +70,12 @@ void	*philo_routine(void *philo_img)
 	while (*philo->life_status == ALIVE)
 	{
 		philo->time_now = get_time();
-		if (*philo->life_status == ALIVE) // is thinking going to be here, or after the sleeping?
+		if (*philo->life_status == ALIVE)
 			philo_thinking(philo);
 		if (*philo->life_status == ALIVE)
 			philo_eating(philo);
 		philo->eaten++;
-		philo->time_beg_one_loop = get_time(); // after eating reseting time to next loop!
+		philo->time_beg_one_loop = get_time();
 		if (*philo->life_status == ALIVE)
 			philo_sleeping(philo);
 		if (*philo->life_status == ALIVE)

@@ -6,12 +6,15 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:04:34 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 10:30:18 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 11:03:46 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosopher.h"
 
+/// @brief This will pick each philosopher in the struct
+/// @brief and create each thread and join them
+/// @param prog
 void	thread_creat_n_join(t_all *prog)
 {
 	t_philo	*tmp;
@@ -26,6 +29,10 @@ void	thread_creat_n_join(t_all *prog)
 	join_even(prog->philo);
 }
 
+/// @brief Read inputs and initializate the program structure vars
+/// @param ac
+/// @param av
+/// @return (Prog struct) (null -> if not good inputs)
 t_all	*init_prog_struct(int ac, char **av)
 {
 	t_all	*prog;
@@ -36,10 +43,11 @@ t_all	*init_prog_struct(int ac, char **av)
 	prog->many_philo = ft_atoi(av[1]);
 	if (prog->many_philo <= 0)
 		return (free(prog), NULL);
-	prog->life_status = ALIVE;
 	pthread_mutex_init(&prog->messager, NULL);
+	prog->life_status = ALIVE;
 	prog->philo = NULL;
-	start_philos(prog, ac, av);
+	if (start_philos(prog, ac, av) == ERROR)
+		exit (1);
 	return (prog);
 }
 
@@ -66,7 +74,7 @@ void	start_game(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	if (ac >= 5 && check_only_nums(av))
+	if (ac >= 5 && check_only_nums(av)) //check if this can be really checked in here
 		start_game(ac, av);
 	else
 		return (1);

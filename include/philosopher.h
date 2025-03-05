@@ -21,7 +21,7 @@
 # define DEAD_M "died"
 # define EATING_M "is eating"
 # define SLEEPING_M "is sleeping"
-# define THINKING_M "is thinking" */
+# define THINKING_M "is thinking"*/
 
 
 # define FORK_M "has taken a fork	🍴"
@@ -77,7 +77,7 @@ typedef struct	s_all
 //----------program initialization
 void	connect_r_fork(t_all *prog);
 t_all	*init_prog_struct(int ac, char **av);
-void	start_philos(t_all *prog, int ac, char **av);
+int	start_philos(t_all *prog, int ac, char **av);
 void	init_philo_val(t_all *prog, t_philo *philo, t_inp_values val);
 int		reading_input(t_inp_values *val, char **av, int ac);
 
