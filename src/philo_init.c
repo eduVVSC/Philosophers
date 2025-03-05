@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:13:52 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 11:44:08 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:02:58 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,24 @@ void	connect_r_fork(t_all *prog)
 	}
 	if (prog->many_philo > 1)
 		tmp->r_fork = &prog->philo->l_fork;
+}
+
+/// @brief Get both forks to eat, in a non inversion way
+/// @param philo
+void	get_forks(t_philo *philo)
+{
+	if (philo->phl_num % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->l_fork);
+		print_message(philo, FORK_M);
+		pthread_mutex_lock(philo->r_fork);
+		print_message(philo, FORK_M);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->r_fork);
+		print_message(philo, FORK_M);
+		pthread_mutex_lock(&philo->l_fork);
+		print_message(philo, FORK_M);
+	}
 }

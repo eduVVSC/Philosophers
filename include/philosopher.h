@@ -1,5 +1,17 @@
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosopher.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 11:52:13 by edvieira          #+#    #+#             */
+/*   Updated: 2025/03/05 12:47:16 by edvieira         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILOSOPHER_H
+# define PHILOSOPHER_H
 
 # include "libft.h"
 # include <sys/time.h>
@@ -23,7 +35,6 @@
 # define SLEEPING_M "is sleeping"
 # define THINKING_M "is thinking"*/
 
-
 # define FORK_M "has taken a fork	🍴"
 # define DEAD_M "died			💀"
 # define EATING_M "is eating		🍅"
@@ -31,7 +42,7 @@
 # define THINKING_M "is thinking	🤔"
 
 /// @brief Struct that will hold all the users inputs
-typedef struct	s_inp_values
+typedef struct s_inp_values
 {
 	int				many_philo;
 	int				phl_num;
@@ -41,7 +52,8 @@ typedef struct	s_inp_values
 	int				time_sleep;
 }				t_inp_values;
 
-typedef struct	s_philo
+/// @brief Has all the philosopher attributes
+typedef struct s_philo
 {
 	// philosopher characteristics
 	int				eaten;
@@ -54,7 +66,7 @@ typedef struct	s_philo
 	long			time_now; // for whole program
 	long			loop_start; // for all loop
 	long			action_start; // for each action, to see when it has to end
-	long			time_beg_one_loop; // to see throught out the action when he is going to die!
+	long			time_beg_one_loop; // time loop started
 	// game variables
 	int				*life_status;
 	pthread_t		thread;
@@ -64,7 +76,7 @@ typedef struct	s_philo
 	struct s_philo	*next;
 }				t_philo;
 
-typedef struct	s_all
+typedef struct s_all
 {
 	struct timeval	tv;
 	int				many_philo;
@@ -86,12 +98,13 @@ void	print_philos(t_philo *philo);
 
 //-----------Utils
 size_t	get_time(void);
+void	get_forks(t_philo *philo);
 void	join_even(t_philo *philo);
 void	join_odds(t_philo *philo);
 int		check_only_nums(char **str);
 void	clean_n_finish(t_all *prog);
 int		valid_inputs(t_inp_values val, int ac);
-void	print_message(t_philo *philo ,char *message);
+void	print_message(t_philo *philo, char *message);
 
 //-----------Philo routine
 void	philo_eating(t_philo *philo);

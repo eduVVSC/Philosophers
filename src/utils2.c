@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:59:26 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 11:45:16 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:07:39 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,15 @@ void	join_even(t_philo *philo)
 	}
 }
 
-void	print_philo_info(t_philo *philo)
+/* void	change_life_status(t_philo *philo)
+{
+	pthread_mutex_lock(philo->die);
+	if (philo->life_status != DEAD)
+		*philo->life_status == DEAD;
+	pthread_mutex_unlock(philo->die);
+} */
+
+/*void	print_philo_info(t_philo *philo)
 {
 	if (!philo)
 	{
@@ -78,4 +86,4 @@ void	print_philos(t_philo *philo)
 		print_philo_info(philo);
 		philo = philo->next;
 	}
-}
+}*/
