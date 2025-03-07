@@ -37,7 +37,7 @@
 # define DEAD_M "died"
 # define EATING_M "is eating"
 # define SLEEPING_M "is sleeping"
-# define THINKING_M "is thinking"*/
+# define THINKING_M "is thinking" */
 
 # define FORK_M "has taken a fork	🍴"
 # define DEAD_M "died			💀"

@@ -61,8 +61,9 @@ void	*philo_routine(void *philo_img)
 
 	philo = (t_philo *)philo_img;
 	force_sync(philo);
-
 	philo->loop_start = get_time();
+	if (philo->phl_num % 2 == 1)
+		usleep(150);
 	philo->time_beg_one_loop = philo->loop_start;
 	while (life_status(CHECK, philo) == ALIVE)
 	{

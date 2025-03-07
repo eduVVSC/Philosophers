@@ -21,8 +21,8 @@ void	force_sync(t_philo *philo)
 	while (*philo->life_status == WAITING)
 	{
 	}
-	if (philo->phl_num % 2 == 0)
-		usleep(500);
+//	if (philo->phl_num % 2 == 0)
+//		usleep(0);
 }
 
 /// @brief Routine dor table, that will basecally
