@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:04:37 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 15:54:10 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:07:48 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,19 @@ void	clean_n_finish(t_all *prog)
 		free(tmp);
 	}
 	free(prog);
+}
+/// @brief Get both forks to eat, in a non inversion way
+/// @param philo
+void	let_forks(t_philo *philo)
+{
+	if (philo->phl_num % 2 == 0)
+	{
+		pthread_mutex_unlock(&philo->l_fork);
+		pthread_mutex_unlock(philo->r_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(&philo->l_fork);
+	}
 }

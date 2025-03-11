@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:31:42 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 15:41:10 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:08:12 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,25 @@ void	philo_thinking(t_philo *philo)
 	print_message(philo, THINKING_M);
 }
 
-void	philo_sleeping(t_philo *philo)
+int	philo_sleeping(t_philo *philo)
 {
 	philo->action_start = get_time();
 	print_message(philo, SLEEPING_M);
 	while ((philo->time_now - philo->action_start) < philo->time_sleep)
 	{
 		if (life_status(CHECK, philo) == DEAD)
-			break ;
+			return (FALSE);
 		if (!alive(philo))
 		{
 			life_status(SET, philo);
-			break ;
+			return (FALSE);
 		}
 		usleep(100);
 	}
+	return (TRUE);
 }
 
-void	philo_eating(t_philo *philo)
+int	philo_eating(t_philo *philo)
 {
 	get_forks(philo);
 	print_message(philo, EATING_M);
@@ -42,17 +43,18 @@ void	philo_eating(t_philo *philo)
 	while ((philo->time_now - philo->action_start) < philo->time_eat)
 	{
 		if (life_status(CHECK, philo) == DEAD)
-			break ;
+			return (FALSE);
 		if (!alive(philo))
 		{
 			life_status(SET, philo);
-			break ;
+			return (FALSE);
 		}
+		usleep(100);
 	}
-	pthread_mutex_unlock(&philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
+	let_forks(philo);
 	philo->time_beg_one_loop = get_time();
 	philo->eaten++;
+	return (TRUE);
 }
 
 void	*philo_routine(void *philo_img)
@@ -68,7 +70,7 @@ void	*philo_routine(void *philo_img)
 	while (life_status(CHECK, philo) == ALIVE)
 	{
 		philo->time_now = get_time();
-		if (life_status(CHECK, philo) == ALIVE) // one solution might be take this away?
+		if (life_status(CHECK, philo) == ALIVE)
 			philo_thinking(philo);
 		if (life_status(CHECK, philo) == ALIVE)
 			philo_eating(philo);
