@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:52:13 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 16:06:31 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:13:39 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ typedef struct s_inp_values
 typedef struct s_philo
 {
 	// philosopher characteristics
-	int				on;
-	int				eaten;
-	int				phl_num;
-	int				max_eat;
+	int				on; //
+	int				eaten; //
+	int				phl_num;//
+	int				max_eat;//
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
@@ -108,6 +108,7 @@ void	print_philos(t_philo *philo);
 size_t	get_time(void);
 void	join(t_philo *philo);
 int		alive(t_philo *philo);
+void	detach(t_philo *philo);
 void	get_forks(t_philo *philo);
 void	let_forks(t_philo *philo);
 int		check_only_nums(char **str);

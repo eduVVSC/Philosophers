@@ -17,3 +17,11 @@
 	- ./philo 50 800 200 200
 
 	- ./philo 100 800 200 200
+
+
+Need to check why the max eat isnt working perfectly(there is delay somehow)! EXAMPLE 3
+
+SEGFAULT in last example
+
+SEGFAULT in last example ./philo 10 200 50 50 2
+--> all the examples with max eat with num_philo greater than 4

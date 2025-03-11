@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:31:42 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 16:08:12 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:05:34 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,17 @@ int	philo_eating(t_philo *philo)
 	while ((philo->time_now - philo->action_start) < philo->time_eat)
 	{
 		if (life_status(CHECK, philo) == DEAD)
+		{
+			let_forks(philo);
 			return (FALSE);
+		}
 		if (!alive(philo))
 		{
 			life_status(SET, philo);
+			let_forks(philo);
 			return (FALSE);
 		}
-		usleep(100);
+		usleep(50);
 	}
 	let_forks(philo);
 	philo->time_beg_one_loop = get_time();
@@ -72,13 +76,13 @@ void	*philo_routine(void *philo_img)
 		philo->time_now = get_time();
 		if (life_status(CHECK, philo) == ALIVE)
 			philo_thinking(philo);
-		if (life_status(CHECK, philo) == ALIVE)
-			philo_eating(philo);
-		if (life_status(CHECK, philo) == ALIVE)
-			philo_sleeping(philo);
+		if (!philo_eating(philo))
+			break ;
 		if (philo->max_eat != -1 && philo->eaten == philo->max_eat)
 			break ;
-		usleep(100);
+		if (!philo_sleeping(philo))
+			break ;
+		usleep(50);
 	}
 	return (NULL);
 }

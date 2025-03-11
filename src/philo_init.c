@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:13:52 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 15:40:37 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:58:16 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	reading_input(t_inp_values *val, char **av, int ac)
 void	init_philo_val(t_all *prog, t_philo *philo, t_inp_values val)
 {
 	philo->eaten = 0;
+	philo->on = 0;
 	philo->phl_num = val.phl_num;
 	philo->max_eat = val.max_eat;
 	philo->time_die = val.time_die;
@@ -104,22 +105,21 @@ void	connect_r_fork(t_all *prog)
 		tmp->r_fork = &prog->philo->l_fork;
 }
 
-/// @brief Get both forks to eat, in a non inversion way
-/// @param philo
-void	get_forks(t_philo *philo)
+/// @brief Detach mutex and free struct
+/// @param prog
+void	clean_n_finish(t_all *prog)
 {
-	if (philo->phl_num % 2 == 0)
+	t_philo	*tmp;
+
+	pthread_mutex_destroy(&prog->messager);
+	pthread_mutex_destroy(&prog->death);
+	while (prog->philo)
 	{
-		pthread_mutex_lock(&philo->l_fork);
-		print_message(philo, FORK_M);
-		pthread_mutex_lock(philo->r_fork);
-		print_message(philo, FORK_M);
+		pthread_mutex_destroy(&prog->philo->on_mutex);
+		pthread_mutex_destroy(&prog->philo->l_fork);
+		tmp = prog->philo;
+		prog->philo = prog->philo->next;
+		free(tmp);
 	}
-	else
-	{
-		pthread_mutex_lock(philo->r_fork);
-		print_message(philo, FORK_M);
-		pthread_mutex_lock(&philo->l_fork);
-		print_message(philo, FORK_M);
-	}
+	free(prog);
 }

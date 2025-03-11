@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:04:34 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 15:56:33 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:12:48 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ void	thread_creat_n_join(t_all *prog)
 
 	tmp = prog->philo;
 	pthread_create(&prog->table, NULL, waiting_sync, prog);
-	//pthread_join(prog->table, NULL);
 	while (tmp)
 	{
 		pthread_create(&tmp->thread, NULL, philo_routine, tmp);
 		tmp = tmp->next;
 	}
+	pthread_join(prog->table, NULL);
 	join(prog->philo);
+	detach(prog->philo);
 }
 
 /// @brief Read inputs and initializate the program structure vars
@@ -70,7 +71,7 @@ void	table(int ac, char **av)
 	}
 	else
 		thread_creat_n_join(prog);
-	clean_n_finish(prog);
+	//clean_n_finish(prog);
 	exit (SUCCESS);
 }
 

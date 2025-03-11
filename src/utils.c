@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:04:37 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 16:07:48 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:09:30 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,6 @@ int	valid_inputs(t_inp_values val, int ac)
 	return (TRUE);
 }
 
-/// @brief Detach mutex and free struct
-/// @param prog
-void	clean_n_finish(t_all *prog)
-{
-	t_philo	*tmp;
-
-	pthread_mutex_destroy(&prog->messager);
-	pthread_mutex_destroy(&prog->death);
-	while (prog->philo)
-	{
-		pthread_mutex_destroy(&prog->philo->on_mutex);
-		pthread_mutex_destroy(&prog->philo->l_fork);
-		tmp = prog->philo;
-		prog->philo = prog->philo->next;
-		free(tmp);
-	}
-	free(prog);
-}
 /// @brief Get both forks to eat, in a non inversion way
 /// @param philo
 void	let_forks(t_philo *philo)
@@ -94,5 +76,25 @@ void	let_forks(t_philo *philo)
 	{
 		pthread_mutex_unlock(philo->r_fork);
 		pthread_mutex_unlock(&philo->l_fork);
+	}
+}
+
+/// @brief Get both forks to eat, in a non inversion way
+/// @param philo
+void	get_forks(t_philo *philo)
+{
+	if (philo->phl_num % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->l_fork);
+		print_message(philo, FORK_M);
+		pthread_mutex_lock(philo->r_fork);
+		print_message(philo, FORK_M);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->r_fork);
+		print_message(philo, FORK_M);
+		pthread_mutex_lock(&philo->l_fork);
+		print_message(philo, FORK_M);
 	}
 }

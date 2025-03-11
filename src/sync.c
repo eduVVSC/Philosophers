@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:03:54 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 15:53:30 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:13:24 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,19 @@ int	access_on_var(int action, t_philo *philo)
 	pthread_mutex_unlock(&philo->on_mutex);
 	return (status);
 }
+
+/// @brief
+/// @param tmp
+void	detach(t_philo *tmp)
+{
+	while (tmp)
+	{
+		pthread_detach(tmp->thread);
+		tmp = tmp->next;
+	}
+}
+
+/* void	pers_detach(t_all *prog)
+{
+
+} */
