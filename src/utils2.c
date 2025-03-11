@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:59:26 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 17:27:03 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:44:50 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	join(t_philo *philo)
 	t_philo	*tmp;
 
 	tmp = philo;
-	tmp = tmp->next;
 	while (tmp)
 	{
 		pthread_join(tmp->thread, NULL);
+		//printf("===join %d ok\n", tmp->phl_num);
 		tmp = tmp->next;
 	}
 }

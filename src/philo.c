@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:31:42 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 18:05:34 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:44:22 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	*philo_routine(void *philo_img)
 			break ;
 		usleep(50);
 	}
+	//printf("===end thread %d ok\n", philo->phl_num);
 	return (NULL);
 }
 

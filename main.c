@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:04:34 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 18:12:48 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:44:14 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ void	thread_creat_n_join(t_all *prog)
 	while (tmp)
 	{
 		pthread_create(&tmp->thread, NULL, philo_routine, tmp);
+		//printf("===create ok\n");
 		tmp = tmp->next;
 	}
 	pthread_join(prog->table, NULL);
+	pthread_detach(prog->table);
 	join(prog->philo);
-	detach(prog->philo);
+	//detach(prog->philo);
 }
 
 /// @brief Read inputs and initializate the program structure vars

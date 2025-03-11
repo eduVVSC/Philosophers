@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:03:54 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 18:13:24 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:44:32 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,14 @@ int	access_on_var(int action, t_philo *philo)
 	return (status);
 }
 
-/// @brief
+/// @brief Will detach all the threads in the program
 /// @param tmp
 void	detach(t_philo *tmp)
 {
 	while (tmp)
 	{
 		pthread_detach(tmp->thread);
+		//printf("===detach ok\n");
 		tmp = tmp->next;
 	}
 }
-
-/* void	pers_detach(t_all *prog)
-{
-
-} */
