@@ -26,7 +26,7 @@ OBJ_FILES := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC_FILES))
 all: ${NAME}
 
 ${NAME}: ${LIBFT} ${MAIN_FILE} $(OBJ_FILES) | $(OBJ_DIR)
-	@${CC} ${FLAGS3} ${MAIN_FILE} $(OBJ_FILES) $(LIBFT) -o $(NAME)
+	@${CC} ${FLAGS1} ${MAIN_FILE} $(OBJ_FILES) $(LIBFT) -o $(NAME)
 	@echo "$(GRN)[ ${NAME} ] compiled successfully.$(RES)"
 
 ${LIBFT}:
@@ -34,7 +34,7 @@ ${LIBFT}:
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	@mkdir -p $(@D)
-	@$(CC) $(FLAGS3) -c $< -o $@
+	@$(CC) $(FLAGS1) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -47,9 +47,5 @@ clean:
 fclean: clean
 		@rm -f ${NAME}
 		@rm -f ${LIBFT}
-
-valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo
-
 
 re: fclean all

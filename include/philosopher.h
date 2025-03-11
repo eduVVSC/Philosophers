@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:52:13 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 18:56:05 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:01:49 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@
 # define CHECK 0
 # define SET 1
 
-/* # define FORK_M "has taken a fork"
+# define FORK_M "has taken a fork"
 # define DEAD_M "died"
 # define EATING_M "is eating"
 # define SLEEPING_M "is sleeping"
-# define THINKING_M "is thinking" */
+# define THINKING_M "is thinking"
 
-# define FORK_M "has taken a fork	🍴"
+/* # define FORK_M "has taken a fork	🍴"
 # define DEAD_M "died			💀"
 # define EATING_M "is eating		🍅"
 # define SLEEPING_M "is sleeping	💤"
-# define THINKING_M "is thinking	🤔"
+# define THINKING_M "is thinking	🤔" */
 
 /// @brief Struct that will hold all the users inputs
 typedef struct s_inp_values
