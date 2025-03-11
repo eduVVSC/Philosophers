@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:03:54 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 19:37:20 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:53:30 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@
 /// @param philo
 void	force_sync(t_philo *philo)
 {
-	philo->on = TRUE;
-	while (*philo->life_status == WAITING)
+	access_on_var(SET, philo);
+	while (life_status(CHECK, philo) == WAITING)
 	{
 	}
-//	if (philo->phl_num % 2 == 0)
-//		usleep(0);
 }
 
 /// @brief Routine dor table, that will basecally
@@ -42,7 +40,7 @@ void	*waiting_sync(void *prog_img)
 		sync = 0;
 		while (tmp)
 		{
-			if (tmp->on == FALSE)
+			if (!access_on_var(CHECK, tmp))
 			{
 				sync = 1;
 				break ;
@@ -50,6 +48,25 @@ void	*waiting_sync(void *prog_img)
 			tmp = tmp->next;
 		}
 	}
+	pthread_mutex_lock(prog->philo->death);
 	prog->life_status = ALIVE;
+	pthread_mutex_unlock(prog->philo->death);
 	return (NULL);
+}
+
+/// @brief Function to access the on var to make sync
+/// @param action
+/// @param philo
+/// @return (status of on var)
+int	access_on_var(int action, t_philo *philo)
+{
+	int	status;
+
+	status = 0;
+	pthread_mutex_lock(&philo->on_mutex);
+	if (action == SET)
+		philo->on = TRUE;
+	status = philo->on;
+	pthread_mutex_unlock(&philo->on_mutex);
+	return (status);
 }

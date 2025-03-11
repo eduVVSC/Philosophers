@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:13:52 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 18:13:39 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:40:37 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	init_philo_val(t_all *prog, t_philo *philo, t_inp_values val)
 	philo->messager = &prog->messager;
 	philo->death = &prog->death;
 	pthread_mutex_init(&philo->l_fork, NULL);
+	pthread_mutex_init(&philo->on_mutex, NULL); // initializating the mutex
 	philo->r_fork = NULL;
 	philo->next = NULL;
 }

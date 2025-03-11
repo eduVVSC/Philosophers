@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:52:13 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 18:24:42 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:39:44 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ typedef struct s_philo
 	int				*life_status;
 	pthread_t		thread;
 	pthread_mutex_t	l_fork;
-	pthread_mutex_t	*r_fork;
-	pthread_mutex_t	*messager;
-	pthread_mutex_t	*death;
+	pthread_mutex_t	on_mutex;
+	pthread_mutex_t	*r_fork; //ref
+	pthread_mutex_t	*messager; //ref
+	pthread_mutex_t	*death; //ref
 	struct s_philo	*next;
 }				t_philo;
 
@@ -124,5 +125,6 @@ void	*one_philo_routine(void *philo_img);
 //-----------Sync
 void	force_sync(t_philo *philo);
 void	*waiting_sync(void *prog_img);
+int		access_on_var(int action, t_philo *philo);
 
 #endif

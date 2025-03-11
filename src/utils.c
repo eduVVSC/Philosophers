@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 09:04:37 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/05 18:25:53 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:54:10 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	clean_n_finish(t_all *prog)
 	pthread_mutex_destroy(&prog->death);
 	while (prog->philo)
 	{
+		pthread_mutex_destroy(&prog->philo->on_mutex);
 		pthread_mutex_destroy(&prog->philo->l_fork);
 		tmp = prog->philo;
 		prog->philo = prog->philo->next;
