@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:04:34 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 18:44:14 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:54:38 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	thread_creat_n_join(t_all *prog)
 	while (tmp)
 	{
 		pthread_create(&tmp->thread, NULL, philo_routine, tmp);
-		//printf("===create ok\n");
 		tmp = tmp->next;
 	}
 	pthread_join(prog->table, NULL);
@@ -48,7 +47,7 @@ t_all	*init_prog_struct(int ac, char **av)
 	if (prog->many_philo <= 0)
 		return (free(prog), NULL);
 	pthread_mutex_init(&prog->messager, NULL);
-	pthread_mutex_init(&prog->death, NULL); // new mutex declaration
+	pthread_mutex_init(&prog->death, NULL);
 	prog->life_status = WAITING;
 	prog->philo = NULL;
 	if (start_philos(prog, ac, av) == ERROR)

@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:03:54 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 18:44:32 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:55:14 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	detach(t_philo *tmp)
 	while (tmp)
 	{
 		pthread_detach(tmp->thread);
-		//printf("===detach ok\n");
 		tmp = tmp->next;
 	}
 }

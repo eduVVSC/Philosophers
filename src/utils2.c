@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:59:26 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 18:44:50 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:55:46 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 /// @param message
 void	print_message(t_philo *philo, char *message)
 {
-	// transform it to int type of function in order to deal with the error
-	// return (ERROR) if couldnt write the message, in this case means that some of the existing philos died
 	philo->time_now = get_time();
 	pthread_mutex_lock(philo->messager);
 	if (life_status(CHECK, philo) != DEAD)
@@ -43,7 +41,7 @@ int	life_status(int action, t_philo *philo)
 		{
 			*philo->life_status = DEAD;
 			printf("%ld %d %s\n", (philo->time_now - philo->loop_start),
-			philo->phl_num, DEAD_M);
+				philo->phl_num, DEAD_M);
 		}
 	}
 	status = *philo->life_status;
@@ -73,7 +71,6 @@ void	join(t_philo *philo)
 	while (tmp)
 	{
 		pthread_join(tmp->thread, NULL);
-		//printf("===join %d ok\n", tmp->phl_num);
 		tmp = tmp->next;
 	}
 }

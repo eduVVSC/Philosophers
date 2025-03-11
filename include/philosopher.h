@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:52:13 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 18:13:39 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:56:05 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_all
 	struct timeval	tv;
 	int				many_philo;
 	int				life_status;
-	pthread_t			table;
+	pthread_t		table;
 	pthread_mutex_t	messager;
 	pthread_mutex_t	death;
 	t_philo			*philo;
