@@ -6,7 +6,7 @@
 /*   By: edvieira <edvieira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 14:59:26 by edvieira          #+#    #+#             */
-/*   Updated: 2025/03/11 16:05:55 by edvieira         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:27:03 by edvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_message(t_philo *philo, char *message)
 	// return (ERROR) if couldnt write the message, in this case means that some of the existing philos died
 	philo->time_now = get_time();
 	pthread_mutex_lock(philo->messager);
-	if (*philo->life_status != DEAD)
+	if (life_status(CHECK, philo) != DEAD)
 		printf("%ld %d %s\n", (philo->time_now - philo->loop_start),
 			philo->phl_num, message);
 	pthread_mutex_unlock(philo->messager);
