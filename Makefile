@@ -2,10 +2,7 @@ CC = cc
 NAME = philo
 
 #FLAGS
-FLAGS = -g -I$(LIB_DIR) -Wall -Wextra -Werror
-FLAGS1 = -fsanitize=thread -g -I$(LIB_DIR) -Wall -Wextra -Werror
-FLAGS2 = -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-omit-frame-pointer -g -I$(LIB_DIR) -Wall -Wextra -Werror
-FLAGS3 = -fsanitize=memory -g -I$(LIB_DIR) -Wall -Wextra -Werror
+FLAGS = -fsanitize=thread -g -I$(LIB_DIR) -Wall -Wextra -Werror
 
 LIB_DIR = libft/
 SRC_DIR = src/
@@ -26,7 +23,7 @@ OBJ_FILES := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC_FILES))
 all: ${NAME}
 
 ${NAME}: ${LIBFT} ${MAIN_FILE} $(OBJ_FILES) | $(OBJ_DIR)
-	@${CC} ${FLAGS1} ${MAIN_FILE} $(OBJ_FILES) $(LIBFT) -o $(NAME)
+	@${CC} ${FLAGS} ${MAIN_FILE} $(OBJ_FILES) $(LIBFT) -o $(NAME)
 	@echo "$(GRN)[ ${NAME} ] compiled successfully.$(RES)"
 
 ${LIBFT}:
@@ -34,7 +31,7 @@ ${LIBFT}:
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	@mkdir -p $(@D)
-	@$(CC) $(FLAGS1) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
