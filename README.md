@@ -59,14 +59,11 @@ $ ./philo 5 800 200 200
 - Must use **mutexes** and **threads**.
 - The program **must not crash**.
 - The program should not have **memory leaks**.
+- Program don't need to deal with more than 200 philophers!
 
 ## 🔍 Debugging Tips
 
-- Use **Valgrind** to check for memory leaks:
-  ```sh
-  valgrind --leak-check=full ./philo 5 800 200 200
-  ```
-(you can also do that by using the fsanitizer=address)
+While using the application is running fsanitizer=threads to check if there are some condition related to the threads behaviour running out of expected.
 
 ## 🌟 Acknowledgments
 
