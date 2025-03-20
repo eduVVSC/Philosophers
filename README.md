@@ -2,11 +2,11 @@
 
 ## 🏛️ About the Project
 
-The **Philosopher** project is part of the curriculum at **42** and is based on the **Dining Philosophers Problem**. It introduces key concepts of **multithreading, process synchronization, and concurrency control**, helping students understand race conditions, deadlocks, and resource sharing.
+The **Philosopher** project is part of the curriculum at **42** and is based on the **Dining Philosophers Problem**. It introduces key concepts of **multithreading, process synchronization, and concurrency control**. The main porpouse of the project is to make us understand what is envolved in the multi-threads application and to learn how the concept of race conditions, deadlocks, and resource sharing.
 
 ## 📜 The Problem Statement
 
-A group of philosophers sits around a table with a fork for each philosopher. To eat, a philosopher must pick up the two forks, his and the one on his right(in my program). The challenge is to ensure that:
+A group of philosophers sits around a table with a fork for each philosopher. All of them have the same routine, they think, eat and sleep, and they cannot to them at the same time. To eat, a philosopher must pick up the two forks, his and the one from the philosopher on his right(in my program). The main challenge is to ensure that:
 
 - No philosopher **starves**.
 - There are no **deadlocks**.
